@@ -1,7 +1,6 @@
-FROM registry.redhat.io/ansible-tower-37/ansible-tower-rhel7
+FROM registry.redhat.io/ansible-tower-38/ansible-tower-rhel7
 USER root
-RUN virtualenv --system-site-packages /var/lib/awx/venv/ansible
-RUN sh -c ". /var/lib/awx/venv/ansible/bin/activate ; pip install --upgrade pip"
-RUN sh -c ". /var/lib/awx/venv/ansible/bin/activate ; pip install ansible==2.9.13.0"
-RUN sh -c ". /var/lib/awx/venv/ansible/bin/activate ; pip install openshift"
-RUN sh -c ". /var/lib/awx/venv/ansible/bin/activate ; pip install kubernetes"
+RUN yum install -y gcc python-devel openssl-devel
+RUN umask 0022
+RUN virtualenv /var/lib/awx/venv/ansible2.7
+RUN /var/lib/awx/venv/ansible2.7/bin/pip install psutil python "ansible==2.9.15" openshift kubernetes
